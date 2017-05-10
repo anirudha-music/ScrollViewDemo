@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var horizontalView: UIView!
     
+    
     @IBAction func one(_ sender: UIButton) {
         slideScroll(x: sender.frame.origin.x)
     }
