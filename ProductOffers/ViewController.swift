@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var horizontalView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     
     @IBAction func one(_ sender: UIButton) {
@@ -43,6 +44,8 @@ class ViewController: UIViewController {
         print(self.horizontalView.frame.origin.y)
         UIView.animate(withDuration: 0.5, animations: {
             self.horizontalView.frame.origin.x = x
+            let rect = CGRect(x: x, y: 0, width: 120, height: 60)
+            self.scrollView.scrollRectToVisible(rect, animated: true)
         }, completion: nil)
     }
 

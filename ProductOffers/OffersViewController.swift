@@ -10,26 +10,50 @@ import UIKit
 
 class OffersViewController: UIViewController {
 
+    @IBOutlet weak var tabBarCollection: UICollectionView!
+    @IBOutlet weak var OffersCollection: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tabBarCollection.tag = 1001
+        OffersCollection.tag = 1002
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+
+    @IBAction func clickedButton(_ sender: UIButton) {
+        let index = sender.tag
+        let indexPath = IndexPath(item: index, section: 0)
+        OffersCollection.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    var titles = ["", "DEF", "HIJ", "LMN"]
+    var colors: [UIColor] = [.red, .blue, .green, .yellow]
 
 }
+
+extension OffersViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return titles.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView.tag == 1001 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryTableCellsz", for: indexPath) as! CategoryTableCellsz
+            cell.categoryTitle.setTitle(titles[indexPath.row], for: .normal)
+            cell.categoryTitle.tag = indexPath.row + 1
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+            cell.backgroundColor = colors[indexPath.row]
+            return cell
+        }
+    }
+}
+
+class CategoryTableCellsz: UICollectionViewCell {
+    @IBOutlet weak var categoryTitle: UIButton!
+}
+
+
+
